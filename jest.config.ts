@@ -10,7 +10,7 @@ export default {
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   //setupFiles: ['./setupFile.js'],
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.spec.{ts,tsx}'],
+  collectCoverageFrom: ['src/app/*.{ts,tsx}', '!src/**/*.spec.{ts,tsx}'],
   coverageReporters: ['lcov'],
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
