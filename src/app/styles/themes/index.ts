@@ -1,1 +1,6 @@
-export const theme = {} as const;
+export const theme = {
+  colors: {
+    WHITE: '#FFFFFF',
+    ORANGE: '#EB9139',
+  },
+} as const;
