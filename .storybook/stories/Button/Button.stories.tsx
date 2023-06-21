@@ -1,16 +1,18 @@
 import React from 'react';
 import { View } from 'react-native';
-import { MyButton } from './Button';
+import { Button } from '../../../src/app/components/Button';
 import { Meta } from '@storybook/react-native';
 
-const MyButtonMeta: Meta<typeof MyButton> = {
-  title: 'MyButton',
-  component: MyButton,
+const ButtonMeta: Meta<typeof Button> = {
+  title: 'Button',
+  component: Button,
+  args: {
+    disabled: true,
+  },
   argTypes: {
     onPress: { action: 'pressed the button' },
-  },
-  args: {
-    text: 'Hello world',
+    backgroundColor: { control: 'color' },
+    disabled: { control: 'boolean' },
   },
 
   decorators: [
@@ -22,12 +24,9 @@ const MyButtonMeta: Meta<typeof MyButton> = {
   ],
 };
 
-export default MyButtonMeta;
-
-export const Basic = {};
-
-export const AnotherExample = {
+export default ButtonMeta;
+export const Default = {
   args: {
-    text: 'Another example',
+    title: 'Another example',
   },
 };

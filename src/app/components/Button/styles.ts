@@ -10,8 +10,12 @@ type TextProps = {
 };
 
 export const Container = styled.TouchableOpacity<ContainerProps>`
-  background-color: ${({ theme, backgroundColor }) =>
-    backgroundColor ? backgroundColor : theme.colors.ORANGE};
+  background-color: ${({ theme, backgroundColor, disabled }) =>
+    !disabled
+      ? backgroundColor
+        ? backgroundColor
+        : theme.colors.ORANGE
+      : theme.colors.GRAY};
   width: 100%;
   padding: 12px;
   border-radius: 12px;
