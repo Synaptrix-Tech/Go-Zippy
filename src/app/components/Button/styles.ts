@@ -28,3 +28,5 @@ export const Text = styled.Text<TextProps>`
   font-size: 16px;
   font-weight: bold;
 `;
+
+

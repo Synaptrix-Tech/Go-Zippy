@@ -7,12 +7,15 @@ const ButtonMeta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   args: {
-    disabled: true,
+    disabled: false,
+    loading: false,
   },
   argTypes: {
     onPress: { action: 'pressed the button' },
     backgroundColor: { control: 'color' },
     disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    
   },
 
   decorators: [
@@ -30,3 +33,17 @@ export const Default = {
     title: 'Another example',
   },
 };
+export const Loading = {
+  args: {
+    title: 'Loading Example',
+    loading:true,
+  },
+};
+
+export const Disabled = {
+  args: {
+    title: 'Disabled Example',
+    disabled:true,
+  },
+};
+
