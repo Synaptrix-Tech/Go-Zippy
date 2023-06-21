@@ -1,6 +1,29 @@
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
+    plugins: [
+      [
+        'module-resolver',
+        {
+          root: ['./src'],
+          alias: {
+            '@assets': './src/app/assets',
+            '@components': './src/app/components',
+            '@constants': './src/app/constants',
+            '@flows': './src/app/flows',
+            '@hooks': './src/app/hooks',
+            '@providers': './src/app/providers',
+            '@routes': './src/app/routes',
+            '@store': './src/app/store',
+            '@styles': './src/app/styles',
+            '@ts': './src/app/ts',
+            '@utils': './src/app/utils',
+            '@infra': './src/infra',
+            '@model': './src/model',
+          },
+        },
+      ],
+    ],
   };
 };
