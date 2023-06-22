@@ -36,4 +36,5 @@ export const Description = styled.Text`
 
 export const Footer = styled.View`
   flex-grow: 1;
+  gap: 16px;
 `;

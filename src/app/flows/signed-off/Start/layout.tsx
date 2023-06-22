@@ -8,10 +8,9 @@ import {
   Title,
 } from './styles';
 import Img from '@assets/signin.jpg';
-import { SafeAreaView, TouchableOpacity, View } from 'react-native';
 import { Button } from '@components/Button';
 
-export function LoginLayout() {
+export function StartLayout() {
   return (
     <Container source={Img}>
       <Overlay>
@@ -25,7 +24,8 @@ export function LoginLayout() {
           </Description>
         </Content>
         <Footer>
-          <Button title="Login"></Button>
+          <Button title="Login" />
+          <Button title="Register" variation="outline" />
         </Footer>
       </Overlay>
     </Container>

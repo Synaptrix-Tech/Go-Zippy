@@ -1,6 +1,9 @@
 import React from 'react';
-import { Container, Text } from './styles';
+import { Container, Content, Text } from './styles';
 import { TouchableOpacityProps, ActivityIndicator } from 'react-native';
+import { useTheme } from 'styled-components';
+
+export type ButtonVariation = 'contained' | 'outline';
 
 type ButtonProps = TouchableOpacityProps & {
   backgroundColor?: string;
@@ -9,6 +12,9 @@ type ButtonProps = TouchableOpacityProps & {
   children?: React.ReactNode;
   titleColor?: string;
   loading?: boolean;
+  icon?: React.ReactNode;
+  leftIcon?: boolean;
+  variation?: ButtonVariation;
 };
 
 export function Button({
@@ -17,20 +23,26 @@ export function Button({
   children,
   titleColor,
   loading,
+  icon,
+  leftIcon = false,
+  variation = 'contained',
   ...rest
 }: ButtonProps) {
+  const { colors } = useTheme();
   return (
-    <Container backgroundColor={backgroundColor} {...rest}>
-      {
-        loading ? (
-          <ActivityIndicator size="small" color="#f3f"  />
-        ) : (
-          <>
-            {title ? <Text color={titleColor}>{title}</Text> : children}
-          </>
-
-        )
-      }
+    <Container
+      variation={variation}
+      backgroundColor={backgroundColor}
+      {...rest}
+    >
+      {loading ? (
+        <ActivityIndicator size="small" color={colors.WHITE} />
+      ) : (
+        <Content leftIcon={leftIcon}>
+          {title ? <Text color={titleColor}>{title}</Text> : children}
+          {icon ? icon : null}
+        </Content>
+      )}
     </Container>
   );
 }

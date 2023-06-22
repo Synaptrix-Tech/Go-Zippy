@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button } from '../../../src/app/components/Button';
 import { Meta } from '@storybook/react-native';
+import { Trash } from 'phosphor-react-native';
 
 const ButtonMeta: Meta<typeof Button> = {
   title: 'Button',
@@ -15,7 +16,13 @@ const ButtonMeta: Meta<typeof Button> = {
     backgroundColor: { control: 'color' },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
-    
+    variant: {
+      control: {
+        type: 'radio',
+        options: ['contained', 'outline'],
+      },
+    },
+    leftIcon: { control: 'boolean' },
   },
 
   decorators: [
@@ -33,17 +40,32 @@ export const Default = {
     title: 'Another example',
   },
 };
+
 export const Loading = {
   args: {
     title: 'Loading Example',
-    loading:true,
+    loading: true,
+  },
+};
+
+export const Outlined = {
+  args: {
+    title: 'Outlined',
+    variant: 'outline',
   },
 };
 
 export const Disabled = {
   args: {
     title: 'Disabled Example',
-    disabled:true,
+    disabled: true,
   },
 };
 
+export const Icon = {
+  args: {
+    title: 'Icon Example',
+    disabled: true,
+    icon: <Trash size={16} color="#FFF" weight="bold" />,
+  },
+};

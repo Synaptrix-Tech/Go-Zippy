@@ -1,13 +1,13 @@
-import { Login } from '@flows/signed-off/login';
 import { AppProviders } from '@providers/index';
 import React from 'react';
 
 import { STORYBOOK_ENABLED } from '@env';
+import { Start } from '@flows/signed-off/Start';
 
 function App() {
   return (
     <AppProviders>
-      <Login />
+      <Start />
     </AppProviders>
   );
 }
