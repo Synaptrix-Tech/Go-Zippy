@@ -23,6 +23,7 @@ module.exports = function (api) {
             '@hooks': './src/app/hooks',
             '@providers': './src/app/providers',
             '@routes': './src/app/routes',
+            '@mocks': './src/app/mocks',
             '@store': './src/app/store',
             '@styles': './src/app/styles',
             '@ts': './src/app/ts',

@@ -9,6 +9,7 @@ import {
 } from './styles';
 import Img from '@assets/signin.jpg';
 import { Button } from '@components/Button';
+import { ArrowLeft } from 'phosphor-react-native';
 
 export function StartLayout() {
   return (

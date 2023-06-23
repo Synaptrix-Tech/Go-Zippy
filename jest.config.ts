@@ -8,7 +8,7 @@ export default {
   preset: 'jest-expo',
   testPathIgnorePatterns: ['/node_modules', '/android', '/ios'],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
-  //setupFiles: ['./setupFile.js'],
+  setupFiles: ['./setupFile.js'],
   collectCoverage: true,
   collectCoverageFrom: ['src/app/*.{ts,tsx}', '!src/**/*.spec.{ts,tsx}'],
   coverageReporters: ['lcov'],

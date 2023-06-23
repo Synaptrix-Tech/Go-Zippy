@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container, Content, Text } from './styles';
-import { TouchableOpacityProps, ActivityIndicator } from 'react-native';
-import { useTheme } from 'styled-components';
+import { TouchableOpacityProps, ActivityIndicator, View } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
 export type ButtonVariation = 'contained' | 'outline';
 
-type ButtonProps = TouchableOpacityProps & {
+export type ButtonProps = TouchableOpacityProps & {
   backgroundColor?: string;
   disabled?: boolean;
   title?: string;
@@ -31,16 +31,21 @@ export function Button({
   const { colors } = useTheme();
   return (
     <Container
+      accessibilityRole="button"
       variation={variation}
       backgroundColor={backgroundColor}
       {...rest}
     >
       {loading ? (
-        <ActivityIndicator size="small" color={colors.WHITE} />
+        <ActivityIndicator
+          testID="loading-indicator"
+          size="small"
+          color={colors.WHITE}
+        />
       ) : (
-        <Content leftIcon={leftIcon}>
+        <Content leftIcon={leftIcon} testID="content-container">
           {title ? <Text color={titleColor}>{title}</Text> : children}
-          {icon ? icon : null}
+          {icon ? <View testID="icon-container">{icon}</View> : null}
         </Content>
       )}
     </Container>
