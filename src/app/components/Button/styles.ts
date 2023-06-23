@@ -9,6 +9,8 @@ type ContainerProps = {
 
 type TextProps = {
   color?: string;
+  bold?: boolean;
+  fontSize?: number;
 };
 
 type Content = {
@@ -18,14 +20,14 @@ type Content = {
 export const Container = styled.TouchableOpacity<ContainerProps>`
   background-color: ${({ theme, backgroundColor, disabled, variation }) =>
     !disabled
-      ? variation === 'outline'
+      ? variation === 'outline' || variation === 'ghost'
         ? 'transparent'
         : backgroundColor
         ? backgroundColor
         : theme.colors.ORANGE
       : theme.colors.GRAY};
-  width: 100%;
-  padding: 12px;
+  width: ${({ variation }) => (variation !== 'ghost' ? '100%' : 'auto')};
+  padding: ${({ variation }) => (variation !== 'ghost' ? 12 : 0)}px;
   border-radius: 12px;
   align-items: center;
   justify-content: center;
@@ -37,8 +39,8 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
 
 export const Text = styled.Text<TextProps>`
   color: ${({ theme, color }) => (!color ? theme.colors.WHITE : color)};
-  font-size: 16px;
-  font-weight: bold;
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : 16)}px;
+  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
 `;
 
 export const Content = styled.View<Content>`

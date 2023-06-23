@@ -7,9 +7,8 @@ import {
   Overlay,
   Title,
 } from './styles';
-import Img from '@assets/signin.jpg';
+import Img from '@assets/start.jpg';
 import { Button } from '@components/Button';
-import { ArrowLeft } from 'phosphor-react-native';
 
 export function StartLayout() {
   return (
