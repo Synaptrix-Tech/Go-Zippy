@@ -11,6 +11,8 @@ const makeSut = ({
   variation = 'contained',
   icon,
   leftIcon,
+  textBold = true,
+  fontSize = 16,
 }: ButtonProps) => {
   const props = {
     disabled,
@@ -20,6 +22,8 @@ const makeSut = ({
     variation,
     icon,
     leftIcon,
+    textBold,
+    fontSize,
   };
   return render(<Button {...props} />);
 };
@@ -71,6 +75,16 @@ describe('Button Component', () => {
     });
   });
 
+  it('should be ghost mode', () => {
+    const { getByRole } = makeSut({ variation: 'ghost' });
+    const btn = getByRole('button');
+
+    expect(btn).toHaveStyle({
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+    });
+  });
+
   it('should be render a icon', async () => {
     const { getByTestId } = makeSut({
       icon: <ArrowLeft size={16} color="#f3f" />,
@@ -95,6 +109,31 @@ describe('Button Component', () => {
 
     expect(contentContainer).toHaveStyle({
       flexDirection: 'row-reverse',
+    });
+  });
+
+  it('should be render font size prop', () => {
+    const { getByText } = makeSut({
+      fontSize: 20,
+    });
+
+    const text = getByText('Test button');
+
+    expect(text).toHaveStyle({
+      fontSize: 20,
+      fontWeight: 'bold',
+    });
+  });
+  it('should be render bold weight prop', () => {
+    const { getByText } = makeSut({
+      textBold: false,
+    });
+
+    const text = getByText('Test button');
+
+    expect(text).toHaveStyle({
+      fontSize: 16,
+      fontWeight: 'normal',
     });
   });
 });
