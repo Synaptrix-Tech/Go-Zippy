@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, ButtonProps } from '.';
-import { render } from '@mocks/render';
+import { fireEvent, render } from '@mocks/render';
 import { ArrowLeft } from 'phosphor-react-native';
 
 const makeSut = ({
@@ -13,6 +13,7 @@ const makeSut = ({
   leftIcon,
   textBold = true,
   fontSize = 16,
+  onPress,
 }: ButtonProps) => {
   const props = {
     disabled,
@@ -24,6 +25,7 @@ const makeSut = ({
     leftIcon,
     textBold,
     fontSize,
+    onPress,
   };
   return render(<Button {...props} />);
 };
@@ -135,5 +137,15 @@ describe('Button Component', () => {
       fontSize: 16,
       fontWeight: 'normal',
     });
+  });
+
+  it('should call onPress function', () => {
+    const onPressMock = jest.fn();
+    const { getByRole } = makeSut({ onPress: onPressMock });
+
+    const btn = getByRole('button');
+    fireEvent.press(btn);
+
+    expect(onPressMock).toHaveBeenCalled();
   });
 });
