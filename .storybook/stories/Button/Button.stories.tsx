@@ -19,10 +19,12 @@ const ButtonMeta: Meta<typeof Button> = {
     variant: {
       control: {
         type: 'radio',
-        options: ['contained', 'outline'],
+        options: ['contained', 'outline', 'ghost'],
       },
     },
     leftIcon: { control: 'boolean' },
+    textBold: { control: 'boolean' },
+    fontSize: { control: 'number' },
   },
 
   decorators: [
@@ -52,6 +54,12 @@ export const Outlined = {
   args: {
     title: 'Outlined',
     variant: 'outline',
+  },
+};
+export const Ghost = {
+  args: {
+    title: 'Ghost',
+    variant: 'ghost',
   },
 };
 
