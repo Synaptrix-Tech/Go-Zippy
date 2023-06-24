@@ -17,7 +17,11 @@ export const Input = ({ passwordType = false, ...rest }: InputProps) => {
   };
   return (
     <Container>
-      <CustomInput testID="input" secureTextEntry={!showPassword} {...rest} />
+      <CustomInput
+        testID="input"
+        secureTextEntry={!showPassword && passwordType}
+        {...rest}
+      />
       {passwordType ? (
         <TouchableOpacity
           accessibilityRole="button"
