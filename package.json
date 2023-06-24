@@ -15,13 +15,16 @@
     "yarn:sb-android": "yarn storybook:android"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.1",
     "expo": "~48.0.18",
     "expo-status-bar": "~1.4.4",
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
+    "react-hook-form": "^7.45.0",
     "react-native": "0.71.8",
     "react-native-svg": "13.4.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

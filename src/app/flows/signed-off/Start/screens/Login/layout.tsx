@@ -12,12 +12,39 @@ import {
   Title,
 } from './styles';
 import Img from '@assets/signin.jpg';
-import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { useTheme } from 'styled-components/native';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ControlledInput } from '@components/ControlledInput';
+import { View } from 'react-native';
+
+const LoginForm = z.object({
+  email: z.string().email('Email inválido'),
+  password: z.string().min(6, 'Senha deve ter no mínimo 6 caracteres'),
+});
+
+type LoginForm = z.infer<typeof LoginForm>;
 
 export function LoginLayout() {
   const { colors } = useTheme();
+  const {
+    formState: { errors, isSubmitting },
+    control,
+    handleSubmit,
+  } = useForm({
+    resolver: zodResolver(LoginForm),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = (data: LoginForm) => {
+    console.log(data);
+  };
+
   return (
     <Container>
       <Image source={Img} />
@@ -26,10 +53,29 @@ export function LoginLayout() {
         <Text>Login to your account</Text>
 
         <FormWrapper>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" passwordType />
+          <View>
+            <ControlledInput
+              control={control}
+              name="email"
+              placeholder="Email"
+              error={errors.email?.message}
+            />
+          </View>
+          <View>
+            <ControlledInput
+              control={control}
+              name="password"
+              placeholder="Password"
+              passwordType
+              error={errors.password?.message}
+            />
+          </View>
 
-          <CustomButton title="Login" />
+          <CustomButton
+            title="Login"
+            onPress={handleSubmit(onSubmit)}
+            loading={isSubmitting}
+          />
         </FormWrapper>
 
         <Footer>

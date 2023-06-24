@@ -7,5 +7,7 @@ export const theme = {
     GRAY_DARK: '#121214',
     GRAY_LIGHT: '#edecee',
     GRAY_TEXT: '#5f5b62',
+
+    RED: '#f75a68',
   },
 } as const;
