@@ -1,10 +1,9 @@
 import React from 'react';
 import { ErrorMessage } from './styles';
-import { TextInputProps } from 'react-native';
 import { Controller } from 'react-hook-form';
-import { Input } from '@components/Input';
+import { Input, InputProps } from '@components/Input';
 
-export type InputProps = TextInputProps & {
+export type ControlledInputProps = InputProps & {
   passwordType?: boolean;
   name: string;
   control: any;
@@ -17,7 +16,7 @@ export const ControlledInput = ({
   name,
   error,
   ...rest
-}: InputProps) => {
+}: ControlledInputProps) => {
   return (
     <>
       <Controller

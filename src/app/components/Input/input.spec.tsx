@@ -31,4 +31,11 @@ describe('Input Component', () => {
 
     expect(input.props.secureTextEntry).toBe(false);
   });
+
+  it('Should be render left icon', () => {
+    const { getByTestId } = makeSut({ leftIcon: <></> });
+    const leftIcon = getByTestId('left-icon');
+
+    expect(leftIcon).toBeTruthy();
+  });
 });

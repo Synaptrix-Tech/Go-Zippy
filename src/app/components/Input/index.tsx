@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Container, CustomInput } from './styles';
-import { TextInputProps, TouchableOpacity } from 'react-native';
+import { TextInputProps, TouchableOpacity, View } from 'react-native';
 import { Eye, EyeSlash } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 
 export type InputProps = TextInputProps & {
   passwordType?: boolean;
+  leftIcon?: React.ReactNode;
 };
 
-export const Input = ({ passwordType = false, ...rest }: InputProps) => {
+export const Input = ({
+  passwordType = false,
+  leftIcon,
+  ...rest
+}: InputProps) => {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -17,6 +22,7 @@ export const Input = ({ passwordType = false, ...rest }: InputProps) => {
   };
   return (
     <Container>
+      {leftIcon ? <View testID="left-icon"> {leftIcon}</View> : null}
       <CustomInput
         testID="input"
         secureTextEntry={!showPassword && passwordType}
