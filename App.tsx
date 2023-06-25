@@ -1,13 +1,15 @@
-import { AppProviders } from '@providers/index';
 import React from 'react';
+import { AppProviders } from '@providers/index';
+import 'react-native-gesture-handler';
+
+import { AppRoutes } from '@routes/index';
 
 import { STORYBOOK_ENABLED } from '@env';
-import { Login } from '@flows/signed-off/Start/screens/Login';
 
 function App() {
   return (
     <AppProviders>
-      <Login />
+      <AppRoutes />
     </AppProviders>
   );
 }
