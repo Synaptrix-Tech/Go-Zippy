@@ -19,6 +19,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ControlledInput } from '@components/ControlledInput';
 import { View } from 'react-native';
+import { Alert } from '@components/Alert';
+import { loadingStates, loadingStatesEnum } from '@ts/loading';
 
 const LoginForm = z.object({
   email: z.string().email('Email inválido'),
@@ -27,7 +29,12 @@ const LoginForm = z.object({
 
 type LoginForm = z.infer<typeof LoginForm>;
 
-export function LoginLayout() {
+type Props = {
+  handleLogin: (data: LoginForm) => Promise<void>;
+  requestStates: loadingStates;
+};
+
+export function LoginLayout({ handleLogin, requestStates }: Props) {
   const { colors } = useTheme();
   const {
     formState: { errors, isSubmitting },
@@ -41,8 +48,8 @@ export function LoginLayout() {
     },
   });
 
-  const onSubmit = (data: LoginForm) => {
-    console.log(data);
+  const onSubmit = async (data: LoginForm) => {
+    await handleLogin(data);
   };
 
   return (
@@ -70,6 +77,12 @@ export function LoginLayout() {
               error={errors.password?.message}
             />
           </View>
+          {requestStates === loadingStatesEnum.ERROR ? (
+            <Alert
+              type="error"
+              message="Credenciais erradas verifique-as e tente novamente."
+            />
+          ) : null}
 
           <CustomButton
             title="Login"

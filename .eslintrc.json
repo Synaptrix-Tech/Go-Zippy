@@ -18,6 +18,7 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-useless-catch": "off"
   }
 }

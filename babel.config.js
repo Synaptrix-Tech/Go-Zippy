@@ -28,7 +28,9 @@ module.exports = function (api) {
             '@styles': './src/app/styles',
             '@ts': './src/app/ts',
             '@utils': './src/app/utils',
-            '@infra': './src/infra',
+            '@services': './src/infra/services',
+            '@http': './src/infra/http',
+
             '@model': './src/model',
           },
         },

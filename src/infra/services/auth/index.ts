@@ -1,4 +1,4 @@
-import { api } from 'src/infra/http/http-client';
+import { api } from '@http/http-client';
 import { LoginRequestDTO } from './dtos/request/LoginRequestDTO';
 
 export class AuthService {
@@ -16,7 +16,7 @@ export class AuthService {
 
       return response;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 }
