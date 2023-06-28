@@ -4,11 +4,11 @@
  */
 
 export default {
-  testMatch: ['**/__tests__/**/*.spec.tsx'],
+  testMatch: ['**/__tests__/**/*.spec.tsx', '**/*.spec.tsx'],
   preset: 'jest-expo',
   testPathIgnorePatterns: ['/node_modules', '/android', '/ios'],
-  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
-  //setupFiles: ['./setupFile.js'],
+  setupFilesAfterEnv: ['./setupFile.js'],
+
   collectCoverage: true,
   collectCoverageFrom: ['src/app/*.{ts,tsx}', '!src/**/*.spec.{ts,tsx}'],
   coverageReporters: ['lcov'],

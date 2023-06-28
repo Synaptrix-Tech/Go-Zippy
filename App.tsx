@@ -1,12 +1,24 @@
-export { default } from './.storybook';
-import { AppProviders } from '@providers/index';
 import React from 'react';
-import { View } from 'react-native';
+import { AppProviders } from '@providers/index';
+import 'react-native-gesture-handler';
 
-export function App() {
+import { AppRoutes } from '@routes/index';
+
+import { STORYBOOK_ENABLED } from '@env';
+
+function App() {
   return (
     <AppProviders>
-      <View></View>
+      <AppRoutes />
     </AppProviders>
   );
 }
+
+let AppEntryPoint = App;
+
+if (STORYBOOK_ENABLED === 'true') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  AppEntryPoint = require('./.storybook').default;
+}
+
+export default AppEntryPoint;

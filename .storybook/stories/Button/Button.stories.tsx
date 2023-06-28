@@ -1,16 +1,30 @@
 import React from 'react';
 import { View } from 'react-native';
-import { MyButton } from './Button';
+import { Button } from '../../../src/app/components/Button';
 import { Meta } from '@storybook/react-native';
+import { Trash } from 'phosphor-react-native';
 
-const MyButtonMeta: Meta<typeof MyButton> = {
-  title: 'MyButton',
-  component: MyButton,
+const ButtonMeta: Meta<typeof Button> = {
+  title: 'Button',
+  component: Button,
+  args: {
+    disabled: false,
+    loading: false,
+  },
   argTypes: {
     onPress: { action: 'pressed the button' },
-  },
-  args: {
-    text: 'Hello world',
+    backgroundColor: { control: 'color' },
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    variant: {
+      control: {
+        type: 'radio',
+        options: ['contained', 'outline', 'ghost'],
+      },
+    },
+    leftIcon: { control: 'boolean' },
+    textBold: { control: 'boolean' },
+    fontSize: { control: 'number' },
   },
 
   decorators: [
@@ -22,12 +36,44 @@ const MyButtonMeta: Meta<typeof MyButton> = {
   ],
 };
 
-export default MyButtonMeta;
-
-export const Basic = {};
-
-export const AnotherExample = {
+export default ButtonMeta;
+export const Default = {
   args: {
-    text: 'Another example',
+    title: 'Another example',
+  },
+};
+
+export const Loading = {
+  args: {
+    title: 'Loading Example',
+    loading: true,
+  },
+};
+
+export const Outlined = {
+  args: {
+    title: 'Outlined',
+    variant: 'outline',
+  },
+};
+export const Ghost = {
+  args: {
+    title: 'Ghost',
+    variant: 'ghost',
+  },
+};
+
+export const Disabled = {
+  args: {
+    title: 'Disabled Example',
+    disabled: true,
+  },
+};
+
+export const Icon = {
+  args: {
+    title: 'Icon Example',
+    disabled: true,
+    icon: <Trash size={16} color="#FFF" weight="bold" />,
   },
 };
