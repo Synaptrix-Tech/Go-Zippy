@@ -15,8 +15,8 @@ const AlertMeta: Meta<typeof Alert> = {
     type: {
       control: {
         type: 'radio',
-        options: ['success', 'error', 'info', 'warning'],
       },
+      options: ['success', 'error', 'info', 'warning'],
     },
   },
 
