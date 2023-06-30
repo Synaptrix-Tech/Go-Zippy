@@ -12,9 +12,13 @@ import { Button } from '@components/Button';
 
 type StartLayoutProps = {
   handleGoToLogin: () => void;
+  handleGoToRegister: () => void;
 };
 
-export function StartLayout({ handleGoToLogin }: StartLayoutProps) {
+export function StartLayout({
+  handleGoToLogin,
+  handleGoToRegister,
+}: StartLayoutProps) {
   return (
     <Container source={Img}>
       <Overlay>
@@ -29,7 +33,11 @@ export function StartLayout({ handleGoToLogin }: StartLayoutProps) {
         </Content>
         <Footer>
           <Button title="Login" onPress={handleGoToLogin} />
-          <Button title="Register" variation="outline" />
+          <Button
+            title="Register"
+            variation="outline"
+            onPress={handleGoToRegister}
+          />
         </Footer>
       </Overlay>
     </Container>
