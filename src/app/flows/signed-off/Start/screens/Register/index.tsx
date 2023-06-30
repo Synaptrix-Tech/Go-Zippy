@@ -1,6 +1,13 @@
 import React from 'react';
 import { RegisterLayout } from './layout';
+import { useAuth } from '@hooks/network/useAuth';
 
 export function Register() {
-  return <RegisterLayout></RegisterLayout>;
+  const { handleRegister, requestStates } = useAuth();
+  return (
+    <RegisterLayout
+      handleRegister={handleRegister}
+      requestStates={requestStates}
+    ></RegisterLayout>
+  );
 }

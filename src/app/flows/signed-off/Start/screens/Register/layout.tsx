@@ -4,6 +4,13 @@ import { ControlledInput } from '@components/ControlledInput';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterRequestDTO } from '@services/auth/dtos/request/RegisterRequestDTO';
+import { loadingStates, loadingStatesEnum } from '@ts/loading';
+
+type Props = {
+  handleRegister: (data: RegisterRequestDTO) => Promise<void>;
+  requestStates: loadingStates;
+};
 
 const RegisterForm = z
   .object({
@@ -24,7 +31,7 @@ const RegisterForm = z
 
 type RegisterForm = z.infer<typeof RegisterForm>;
 
-export function RegisterLayout() {
+export function RegisterLayout({ handleRegister, requestStates }: Props) {
   const {
     control,
     handleSubmit,
@@ -40,8 +47,8 @@ export function RegisterLayout() {
     },
   });
 
-  const onSubmit = (data: RegisterForm) => {
-    console.log(data);
+  const onSubmit = async (data: RegisterForm) => {
+    await handleRegister(data);
   };
   return (
     <Container>
@@ -59,12 +66,15 @@ export function RegisterLayout() {
           placeholder="E-mail"
           control={control}
           name="email"
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <ControlledInput
           placeholder="Telefone"
           control={control}
           name="phone"
           error={errors.phone?.message}
+          keyboardType="phone-pad"
         />
         <ControlledInput
           placeholder="Senha"
@@ -72,6 +82,7 @@ export function RegisterLayout() {
           name="password"
           passwordType
           error={errors.password?.message}
+          autoCapitalize="none"
         />
         <ControlledInput
           placeholder="Confirme sua senha"
@@ -79,9 +90,15 @@ export function RegisterLayout() {
           name="passwordConfirmation"
           passwordType
           error={errors.passwordConfirmation?.message}
+          onSubmitEditing={handleSubmit(onSubmit)}
+          autoCapitalize="none"
         />
       </FormWrapper>
-      <CustomButton title="Sign up" onPress={handleSubmit(onSubmit)} />
+      <CustomButton
+        loading={requestStates === loadingStatesEnum.PENDING}
+        title="Sign up"
+        onPress={handleSubmit(onSubmit)}
+      />
     </Container>
   );
 }
