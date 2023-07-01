@@ -22,7 +22,7 @@ export const Input = ({
   };
   return (
     <Container>
-      {leftIcon ? <View testID="left-icon"> {leftIcon}</View> : null}
+      {leftIcon ? <View testID="left-icon">{leftIcon}</View> : null}
       <CustomInput
         testID="input"
         secureTextEntry={!showPassword && passwordType}

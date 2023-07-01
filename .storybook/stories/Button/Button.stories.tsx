@@ -55,6 +55,7 @@ export const Outlined = {
   args: {
     title: 'Outlined',
     variation: 'outline',
+    titleColor: '#000',
   },
 };
 export const Ghost = {

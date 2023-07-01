@@ -10,5 +10,14 @@ export function Start() {
     navigate(RoutesEnum.LOGIN);
   };
 
-  return <StartLayout handleGoToLogin={handleGoToLogin}></StartLayout>;
+  const handleGoToRegister = () => {
+    navigate(RoutesEnum.REGISTER);
+  };
+
+  return (
+    <StartLayout
+      handleGoToLogin={handleGoToLogin}
+      handleGoToRegister={handleGoToRegister}
+    ></StartLayout>
+  );
 }
