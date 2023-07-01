@@ -16,11 +16,11 @@ const ButtonMeta: Meta<typeof Button> = {
     backgroundColor: { control: 'color' },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
-    variant: {
+    variation: {
       control: {
         type: 'radio',
-        options: ['contained', 'outline', 'ghost'],
       },
+      options: ['contained', 'outline', 'ghost'],
     },
     leftIcon: { control: 'boolean' },
     textBold: { control: 'boolean' },
@@ -53,13 +53,15 @@ export const Loading = {
 export const Outlined = {
   args: {
     title: 'Outlined',
-    variant: 'outline',
+    variation: 'outline',
+    titleColor: '#000',
   },
 };
 export const Ghost = {
   args: {
     title: 'Ghost',
-    variant: 'ghost',
+    variation: 'ghost',
+    titleColor: '#000',
   },
 };
 
