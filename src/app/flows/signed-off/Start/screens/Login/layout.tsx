@@ -66,6 +66,7 @@ export function LoginLayout({ handleLogin, requestStates }: Props) {
               name="email"
               placeholder="Email"
               error={errors.email?.message}
+              autoCapitalize="none"
             />
           </View>
           <View>

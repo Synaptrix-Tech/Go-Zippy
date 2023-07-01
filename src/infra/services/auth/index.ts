@@ -1,6 +1,7 @@
 import { api } from '@http/http-client';
 import { LoginRequestDTO } from './dtos/request/LoginRequestDTO';
 import { RegisterRequestDTO } from './dtos/request/RegisterRequestDTO';
+import { LoginResponseDTO } from './dtos/response/LoginResponseDTO';
 
 export class AuthService {
   private routes = {
@@ -11,7 +12,7 @@ export class AuthService {
   public async Login({
     email,
     password,
-  }: LoginRequestDTO): Promise<LoginRequestDTO> {
+  }: LoginRequestDTO): Promise<LoginResponseDTO> {
     try {
       const response = await api.post(this.routes.login, {
         email,

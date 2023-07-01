@@ -8,6 +8,8 @@ import { LoginRequestDTO } from '@services/auth/dtos/request/LoginRequestDTO';
 import { AuthService } from '@services/auth';
 import { loadingStates, loadingStatesEnum } from '@ts/loading';
 import { RegisterRequestDTO } from '@services/auth/dtos/request/RegisterRequestDTO';
+import { useUserStore } from '@store/userStore';
+import { api } from '@http/http-client';
 
 type AuthContextTypeData = {
   handleLogin: (data: LoginRequestDTO) => Promise<void>;
@@ -21,13 +23,19 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [requestStates, setRequestStates] = useState<loadingStates>(
     loadingStatesEnum.STAND_BY
   );
+  const { update } = useUserStore();
   const authService = new AuthService();
 
   const handleLogin = async (data: LoginRequestDTO) => {
     try {
       setRequestStates(loadingStatesEnum.PENDING);
 
-      const response = await authService.Login(data);
+      const { token } = await authService.Login(data);
+
+      update(token);
+
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+
       setRequestStates(loadingStatesEnum.DONE);
     } catch (e) {
       setRequestStates(loadingStatesEnum.ERROR);
