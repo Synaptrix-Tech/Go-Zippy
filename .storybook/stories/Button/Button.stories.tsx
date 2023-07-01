@@ -14,6 +14,7 @@ const ButtonMeta: Meta<typeof Button> = {
   argTypes: {
     onPress: { action: 'pressed the button' },
     backgroundColor: { control: 'color' },
+    titleColor: { control: 'color' },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
     variation: {
