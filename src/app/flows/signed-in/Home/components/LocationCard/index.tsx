@@ -4,11 +4,7 @@ import { NavigationArrow } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 import { useLocation } from '@hooks/useLocation';
 
-type Props = {
-  location?: string;
-};
-
-export function LocationCard({ location }: Props) {
+export function LocationCard() {
   const { colors } = useTheme();
   const { getLocation } = useLocation();
   return (
@@ -16,7 +12,7 @@ export function LocationCard({ location }: Props) {
       <NavigationArrow size={24} color={colors.GRAY_MEDIUM} />
       <Content>
         <Title>Usar minha localização</Title>
-        <AddressInfo>{location}</AddressInfo>
+        <AddressInfo></AddressInfo>
       </Content>
     </Container>
   );

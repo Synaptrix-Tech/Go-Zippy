@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Address,
+  AddressContainer,
   AddressInfo,
   Complement,
   Container,
@@ -11,22 +11,23 @@ import {
 } from './styles';
 import { CheckCircle, DotsThreeVertical, MapPin } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { Address } from 'src/model/Address';
 
 type Props = {
-  isSelected: boolean;
+  address: Address;
 };
 
-export function AddressCard({ isSelected }: Props) {
+export function AddressCard({ address }: Props) {
   const { colors } = useTheme();
   return (
-    <Container isSelected={isSelected}>
+    <Container isSelected={address.selected}>
       <MapPin size={24} color={colors.GRAY_MEDIUM} />
       <Content>
         <Header>
           <Title>Casa</Title>
           <HeaderActions>
-            {isSelected ? (
+            {address.selected ? (
               <TouchableOpacity>
                 <CheckCircle size={22} color={colors.ORANGE} weight="fill" />
               </TouchableOpacity>
@@ -38,12 +39,16 @@ export function AddressCard({ isSelected }: Props) {
           </HeaderActions>
         </Header>
 
-        <Address>
-          <AddressInfo>Estrada do rio grande,868</AddressInfo>
-          <AddressInfo>Taquara</AddressInfo>
-          <AddressInfo>Rio de Janeiro/RJ</AddressInfo>
-        </Address>
-        <Complement>Bloco 2 704</Complement>
+        <AddressContainer>
+          <AddressInfo>
+            {address.street},{address.number}
+          </AddressInfo>
+          <AddressInfo>{address.state}</AddressInfo>
+          <AddressInfo>
+            {address.city}/{address.state}
+          </AddressInfo>
+        </AddressContainer>
+        <Complement>{address.complement}</Complement>
       </Content>
     </Container>
   );

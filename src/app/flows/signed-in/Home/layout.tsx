@@ -12,20 +12,32 @@ import { useTheme } from 'styled-components/native';
 import { Carousel } from '@components/Carousel';
 import { BottomSheet } from '@components/BottomSheet';
 import BottomSheetLib from '@gorhom/bottom-sheet';
-import { TouchableOpacity } from 'react-native';
+import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { AddressCard } from './components/AddressCard';
 import { LocationCard } from './components/LocationCard';
+import { Address } from 'src/model/Address';
+import { formatAddress } from '@utils/formatAddress';
+import { loadingStates, loadingStatesEnum } from '@ts/loading';
 
 type Props = {
-  address?: string;
+  addressList: Address[];
+  selectedAddress?: Address;
+  requestState: loadingStates;
+  getAddress: () => Promise<void>;
 };
 
-export const HomeLayout = ({ address }: Props) => {
+export const HomeLayout = ({
+  addressList,
+  selectedAddress,
+  getAddress,
+  requestState,
+}: Props) => {
   const { colors } = useTheme();
   const BottomSheetRef = useRef<BottomSheetLib>(null);
 
-  const onOpenBottomSheet = () => {
+  const onOpenBottomSheet = async () => {
     BottomSheetRef.current?.expand();
+    await getAddress();
   };
 
   const onCloseBottomSheet = () => {
@@ -37,7 +49,11 @@ export const HomeLayout = ({ address }: Props) => {
       <Header
         cartCount={0}
         notificationCount={0}
-        location={address || 'Selecionar endereço'}
+        location={
+          selectedAddress
+            ? formatAddress(selectedAddress)
+            : 'Selecionar endereço'
+        }
         onOpenBottomSheet={onOpenBottomSheet}
       />
 
@@ -58,24 +74,41 @@ export const HomeLayout = ({ address }: Props) => {
         handleComponent={() => null}
       >
         <BottomSheetContent>
-          <BottomSheetHeader>
-            <TouchableOpacity onPress={onCloseBottomSheet}>
-              <CaretDown size={22} color={colors.ORANGE} weight="bold" />
-            </TouchableOpacity>
-            <BottomSheetTitle>Endereço de entrega</BottomSheetTitle>
-          </BottomSheetHeader>
-          <Input
-            placeholder="Buscar endereço"
-            leftIcon={
-              <MagnifyingGlass
-                size={16}
-                color={colors.GRAY_TEXT}
-                weight="bold"
+          {requestState === loadingStatesEnum.PENDING ? (
+            <ActivityIndicator size={'large'} color={colors.ORANGE} />
+          ) : (
+            <>
+              <BottomSheetHeader>
+                <TouchableOpacity onPress={onCloseBottomSheet}>
+                  <CaretDown size={22} color={colors.ORANGE} weight="bold" />
+                </TouchableOpacity>
+                <BottomSheetTitle>Endereço de entrega</BottomSheetTitle>
+              </BottomSheetHeader>
+              <Input
+                placeholder="Buscar endereço"
+                leftIcon={
+                  <MagnifyingGlass
+                    size={16}
+                    color={colors.GRAY_TEXT}
+                    weight="bold"
+                  />
+                }
               />
-            }
-          />
-          <LocationCard location={address} />
-          <AddressCard isSelected={true} />
+              <LocationCard />
+              <FlatList
+                style={{
+                  flex: 1,
+                }}
+                contentContainerStyle={{
+                  flex: 1,
+                  paddingBottom: 20,
+                }}
+                data={addressList}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <AddressCard address={item} />}
+              />
+            </>
+          )}
         </BottomSheetContent>
       </BottomSheet>
     </Container>

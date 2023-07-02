@@ -1,5 +1,5 @@
 import { useLocationStore } from '@store/locationStore';
-import { formatAddress } from '@utils/formatAddress';
+import { formatAddress, formatGeoCodeAddress } from '@utils/formatAddress';
 import * as Location from 'expo-location';
 import { useEffect } from 'react';
 
@@ -20,7 +20,7 @@ export const useLocation = () => {
 
     if (permission === 'granted') {
       const geocodedLocation = await reverseGeocode(location.coords);
-      update(formatAddress(geocodedLocation[0]));
+      update(formatGeoCodeAddress(geocodedLocation[0]));
     }
   };
 

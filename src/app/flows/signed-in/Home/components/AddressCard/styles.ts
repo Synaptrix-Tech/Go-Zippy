@@ -43,7 +43,7 @@ export const Content = styled.View`
   flex: 1;
 `;
 
-export const Address = styled.View`
+export const AddressContainer = styled.View`
   gap: 4px;
 `;
 
