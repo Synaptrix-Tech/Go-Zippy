@@ -1,8 +1,6 @@
 import React from 'react';
 import MapView, { LatLng, Marker } from 'react-native-maps';
 import { StyleProp, ViewStyle } from 'react-native';
-import { useLocation } from '@hooks/useLocation';
-import { formatGeoCodeAddress } from '@utils/formatAddress';
 
 type Coords = {
   latitude: number;
@@ -23,21 +21,24 @@ export function Map({ cords, style, onChangePin }: Props) {
 
   const onChangeCoords = async (coords: LatLng) => {
     setRegion(coords);
-    onChangePin(coords);
   };
 
   return (
     <MapView
-      style={style}
-      onPress={(event) => onChangeCoords(event.nativeEvent.coordinate)}
       initialRegion={{
-        latitude: cords?.latitude,
-        longitude: cords?.longitude,
-        latitudeDelta: 0.00457,
-        longitudeDelta: 0.006866,
+        latitude: region.latitude,
+        longitude: region.longitude,
+        latitudeDelta: 0.008,
+        longitudeDelta: 0.008,
       }}
+      onRegionChangeComplete={(coords) => {
+        onChangePin(coords);
+        onChangePin(coords);
+      }}
+      onRegionChange={onChangeCoords}
+      style={style}
     >
-      <Marker coordinate={region} />
+      <Marker coordinate={region || cords} />
     </MapView>
   );
 }

@@ -14,6 +14,7 @@ export type Coords = {
 export type AddressStateType = {
   format: string;
   address: LocationGeocodedAddress;
+  coords?: Coords;
 };
 
 export function Map() {
@@ -21,17 +22,32 @@ export function Map() {
   const [address, setAddress] = useState<AddressStateType | undefined>(
     {} as AddressStateType
   );
+
+  const [requestStates, setRequestStates] = useState<loadingStates>(
+    loadingStatesEnum.STAND_BY
+  );
+
   const [loading, setLoading] = useState<loadingStates>(
     loadingStatesEnum.STAND_BY
   );
 
+  const changeLoading = (status: loadingStates) => {
+    setLoading(status);
+  };
+
   const getLocationAddress = async () => {
+    setRequestStates(loadingStatesEnum.PENDING);
     const response = await getLocation();
 
     setAddress({
       address: response.address,
       format: response.format,
+      coords: {
+        latitude: response.coords?.latitude || 0,
+        longitude: response.coords?.longitude || 0,
+      },
     });
+    setRequestStates(loadingStatesEnum.DONE);
   };
 
   const changePinMarkAddress = async (coords: Coords) => {
@@ -43,6 +59,10 @@ export function Map() {
     setAddress({
       address: geocodeReverseAddress[0],
       format: formattedAddress,
+      coords: {
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      },
     });
     setLoading(loadingStatesEnum.STAND_BY);
   };
@@ -54,8 +74,9 @@ export function Map() {
   return (
     <MapLayout
       changePinMarkAddress={changePinMarkAddress}
-      address={address?.format}
+      address={address}
       loading={loading === loadingStatesEnum.PENDING}
+      requestStates={requestStates}
     ></MapLayout>
   );
 }

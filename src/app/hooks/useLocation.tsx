@@ -1,5 +1,4 @@
-import { useLocationStore } from '@store/locationStore';
-import { formatAddress, formatGeoCodeAddress } from '@utils/formatAddress';
+import { formatGeoCodeAddress } from '@utils/formatAddress';
 import * as Location from 'expo-location';
 import { useEffect } from 'react';
 
@@ -15,6 +14,7 @@ export const useLocation = () => {
   const getLocation = async (): Promise<{
     format: string;
     address: Location.LocationGeocodedAddress;
+    coords?: Location.LocationObjectCoords;
   }> => {
     const location = await Location.getCurrentPositionAsync({});
 
@@ -25,13 +25,20 @@ export const useLocation = () => {
       return {
         format: formatGeoCodeAddress(geocodedLocation[0]),
         address: geocodedLocation[0],
+        coords: location.coords,
       };
     }
 
     return {
       format: '',
       address: {} as Location.LocationGeocodedAddress,
+      coords: {} as Location.LocationObjectCoords,
     };
+  };
+
+  const getLocationCoords = async () => {
+    const location = await Location.getCurrentPositionAsync({});
+    return location.coords;
   };
 
   const reverseGeocode = async (
@@ -48,5 +55,6 @@ export const useLocation = () => {
     requestLocationPermission,
     getLocation,
     reverseGeocode,
+    getLocationCoords,
   };
 };

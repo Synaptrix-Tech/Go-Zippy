@@ -8,55 +8,67 @@ import {
   Title,
 } from './styles';
 import { Map } from '@components/Map';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
-import { CaretLeft, Crosshair } from 'phosphor-react-native';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { CaretLeft } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
-import { Coords } from '.';
+import { AddressStateType, Coords } from '.';
 import { Button } from '@components/Button';
+import { loadingStates, loadingStatesEnum } from '@ts/loading';
 
 type Props = {
-  address?: string;
+  address: AddressStateType | undefined;
   changePinMarkAddress: (coords: Coords) => Promise<void>;
   loading: boolean;
+  requestStates: loadingStates;
 };
 
-export function MapLayout({ address, changePinMarkAddress, loading }: Props) {
+export function MapLayout({
+  address,
+  changePinMarkAddress,
+  loading,
+  requestStates,
+}: Props) {
   const { colors } = useTheme();
   const { goBack } = useNavigation();
+
   return (
     <Container>
-      <Header>
-        <HeaderAction>
-          <TouchableOpacity onPress={goBack}>
-            <CaretLeft size={22} color={colors.ORANGE} weight="bold" />
-          </TouchableOpacity>
-          <Title>Arrasta o mapa para selecionar o local</Title>
-        </HeaderAction>
-        {loading ? (
-          <ActivityIndicator size={'small'} color={colors.ORANGE} />
-        ) : (
-          <Address>{address}</Address>
-        )}
-      </Header>
-      <Map
-        onChangePin={changePinMarkAddress}
-        cords={{
-          latitude: -27.5935,
-          longitude: -48.55854,
-        }}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      />
+      {requestStates !== loadingStatesEnum.PENDING ? (
+        <>
+          <Header>
+            <HeaderAction>
+              <TouchableOpacity onPress={goBack}>
+                <CaretLeft size={22} color={colors.ORANGE} weight="bold" />
+              </TouchableOpacity>
+              <Title>Arrasta o mapa para selecionar o local</Title>
+            </HeaderAction>
+            {loading ? (
+              <ActivityIndicator size={'small'} color={colors.ORANGE} />
+            ) : (
+              <Address>{address?.format}</Address>
+            )}
+          </Header>
 
-      <ConfirmButtonContainer>
-        <Button
-          title="Confirmar localização"
-          icon={<Crosshair size={22} color={colors.WHITE} weight="bold" />}
-        />
-      </ConfirmButtonContainer>
+          <Map
+            onChangePin={changePinMarkAddress}
+            cords={{
+              latitude: address?.coords?.latitude || 0,
+              longitude: address?.coords?.longitude || 0,
+            }}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+          />
+
+          <ConfirmButtonContainer>
+            <Button loading={loading} disabled={loading} title="Continuar" />
+          </ConfirmButtonContainer>
+        </>
+      ) : (
+        <ActivityIndicator size={'large'} color={colors.ORANGE} />
+      )}
     </Container>
   );
 }
