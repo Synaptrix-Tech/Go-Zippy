@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MapLayout } from './layout';
 import { useLocation } from '@hooks/useLocation';
 import { formatGeoCodeAddress } from '@utils/formatAddress';
 import { loadingStates, loadingStatesEnum } from '@ts/loading';
 
 import { LocationGeocodedAddress } from 'expo-location';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 export type Coords = {
   latitude: number;
@@ -23,6 +24,8 @@ export function Map() {
     {} as AddressStateType
   );
 
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
   const [requestStates, setRequestStates] = useState<loadingStates>(
     loadingStatesEnum.STAND_BY
   );
@@ -30,10 +33,6 @@ export function Map() {
   const [loading, setLoading] = useState<loadingStates>(
     loadingStatesEnum.STAND_BY
   );
-
-  const changeLoading = (status: loadingStates) => {
-    setLoading(status);
-  };
 
   const getLocationAddress = async () => {
     setRequestStates(loadingStatesEnum.PENDING);
@@ -48,6 +47,10 @@ export function Map() {
       },
     });
     setRequestStates(loadingStatesEnum.DONE);
+  };
+
+  const openBottomSheet = () => {
+    bottomSheetRef.current?.expand();
   };
 
   const changePinMarkAddress = async (coords: Coords) => {
@@ -77,6 +80,8 @@ export function Map() {
       address={address}
       loading={loading === loadingStatesEnum.PENDING}
       requestStates={requestStates}
+      bottomSheetRef={bottomSheetRef}
+      openBottomSheet={openBottomSheet}
     ></MapLayout>
   );
 }

@@ -1,4 +1,3 @@
-import { Button } from '@components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
@@ -11,8 +10,8 @@ export const Header = styled(SafeAreaView)`
   position: absolute;
   top: 0%;
   width: 100%;
+  z-index: 2;
   left: 0;
-  z-index: 1;
   background-color: ${({ theme }) => theme.colors.WHITE_50};
 
   padding: 0 16px;
@@ -48,4 +47,25 @@ export const ConfirmButtonContainer = styled(SafeAreaView)`
   width: 100%;
 
   padding: 0 16px;
+`;
+
+export const BottomSheetContainer = styled(SafeAreaView)`
+  flex: 1;
+`;
+
+export const BottomSheetContent = styled.View`
+  margin-top: 16px;
+  padding: 16px;
+`;
+
+export const BottomSheetTitle = styled.Text`
+  color: ${({ theme }) => theme.colors.GRAY_DARK};
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+export const BottomSheetSubtitle = styled.Text`
+  color: ${({ theme }) => theme.colors.GRAY_MEDIUM};
+  font-size: 14px;
+  margin-top: 4px;
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView, { LatLng, Marker } from 'react-native-maps';
+import MapView, { LatLng, Marker, MapViewProps } from 'react-native-maps';
 import { StyleProp, ViewStyle } from 'react-native';
 
 type Coords = {
@@ -7,10 +7,10 @@ type Coords = {
   longitude: number;
 };
 
-type Props = {
+type Props = MapViewProps & {
   cords: Coords;
   style?: StyleProp<ViewStyle>;
-  onChangePin: (coords: Coords) => void;
+  onChangePin?: (coords: Coords) => void;
 };
 
 export function Map({ cords, style, onChangePin }: Props) {
@@ -32,8 +32,8 @@ export function Map({ cords, style, onChangePin }: Props) {
         longitudeDelta: 0.008,
       }}
       onRegionChangeComplete={(coords) => {
-        onChangePin(coords);
-        onChangePin(coords);
+        onChangeCoords(coords);
+        onChangePin && onChangePin(coords);
       }}
       onRegionChange={onChangeCoords}
       style={style}
