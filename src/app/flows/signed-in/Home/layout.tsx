@@ -4,6 +4,7 @@ import { Header } from '@components/Header';
 import { Input } from '@components/Input';
 import { MagnifyingGlass } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
+import { Carousel } from '@components/Carousel';
 
 export const HomeLayout = () => {
   const { colors } = useTheme();
@@ -21,6 +22,8 @@ export const HomeLayout = () => {
           <MagnifyingGlass size={16} color={colors.GRAY_TEXT} weight="bold" />
         }
       />
+
+      <Carousel />
     </Container>
   );
 };

@@ -8,7 +8,7 @@ export const AppRoutes = () => {
   const { token } = useUserStore();
   return (
     <NavigationContainer>
-      {token ? <Home /> : <SignedOffRoutes />}
+      {!token ? <Home /> : <SignedOffRoutes />}
     </NavigationContainer>
   );
 };
