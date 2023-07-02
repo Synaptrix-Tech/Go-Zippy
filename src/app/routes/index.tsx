@@ -2,13 +2,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SignedOffRoutes } from './SignedOffRoutes';
 import { useUserStore } from '@store/userStore';
-import { Home } from '@flows/signed-in/Home';
+import { SignedInRoutes } from './SignedInRoutes';
 
 export const AppRoutes = () => {
   const { token } = useUserStore();
   return (
     <NavigationContainer>
-      {token ? <Home /> : <SignedOffRoutes />}
+      {token ? <SignedInRoutes /> : <SignedOffRoutes />}
     </NavigationContainer>
   );
 };
