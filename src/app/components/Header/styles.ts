@@ -10,6 +10,17 @@ export const LocationContainer = styled.View`
   gap: 4px;
 `;
 
+export const ButtonChildrenText = styled.View`
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+`;
+export const Text = styled.Text`
+  color: ${({ theme }) => theme.colors.GRAY_DARK};
+  font-size: 16px;
+  max-width: 240px;
+`;
+
 export const Title = styled.Text`
   font-size: 16px;
 `;

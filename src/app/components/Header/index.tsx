@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   ActionButton,
   ActionsContainer,
   Badge,
   BadgeText,
+  ButtonChildrenText,
   Container,
   LocationContainer,
+  Text,
   Title,
 } from './styles';
 import { Button } from '@components/Button';
-import { Bell, MapPin, ShoppingCart } from 'phosphor-react-native';
+import { Bell, CaretDown, MapPin, ShoppingCart } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 
 export type Props = {
   cartCount: number;
   notificationCount: number;
   location: string;
+  onOpenBottomSheet?: () => void;
 };
 
-export function Header({ cartCount, notificationCount, location }: Props) {
+export function Header({
+  cartCount,
+  notificationCount,
+  location,
+  onOpenBottomSheet,
+}: Props) {
   const { colors } = useTheme();
   return (
     <Container>
@@ -28,11 +36,16 @@ export function Header({ cartCount, notificationCount, location }: Props) {
           testID="location-button"
           variation="ghost"
           leftIcon
+          onPress={onOpenBottomSheet}
           icon={<MapPin size={16} color={colors.ORANGE} weight="fill" />}
-          title={location}
-          titleColor={colors.GRAY_DARK}
-          textBold={false}
-        />
+        >
+          <ButtonChildrenText>
+            <Text numberOfLines={1} ellipsizeMode="tail">
+              {location}
+            </Text>
+            <CaretDown size={18} color={colors.ORANGE} weight="bold" />
+          </ButtonChildrenText>
+        </Button>
       </LocationContainer>
 
       <ActionsContainer>
