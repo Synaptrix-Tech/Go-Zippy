@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   ActionButton,
   ActionsContainer,
@@ -28,6 +28,7 @@ export function Header({
   onOpenBottomSheet,
 }: Props) {
   const { colors } = useTheme();
+
   return (
     <Container>
       <LocationContainer>

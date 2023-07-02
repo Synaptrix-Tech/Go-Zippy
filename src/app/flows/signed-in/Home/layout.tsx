@@ -12,11 +12,15 @@ import { useTheme } from 'styled-components/native';
 import { Carousel } from '@components/Carousel';
 import { BottomSheet } from '@components/BottomSheet';
 import BottomSheetLib from '@gorhom/bottom-sheet';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { AddressCard } from './components/AddressCard';
 import { LocationCard } from './components/LocationCard';
 
-export const HomeLayout = () => {
+type Props = {
+  address?: string;
+};
+
+export const HomeLayout = ({ address }: Props) => {
   const { colors } = useTheme();
   const BottomSheetRef = useRef<BottomSheetLib>(null);
 
@@ -33,7 +37,7 @@ export const HomeLayout = () => {
       <Header
         cartCount={0}
         notificationCount={0}
-        location="1240, Estrada do Rio grande"
+        location={address || 'Selecionar endereço'}
         onOpenBottomSheet={onOpenBottomSheet}
       />
 
@@ -70,7 +74,7 @@ export const HomeLayout = () => {
               />
             }
           />
-          <LocationCard />
+          <LocationCard location={address} />
           <AddressCard isSelected={true} />
         </BottomSheetContent>
       </BottomSheet>
