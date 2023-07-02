@@ -8,5 +8,7 @@ export function formatAddress(address: Address) {
 
 export function formatGeoCodeAddress(address: LocationGeocodedAddress) {
   const { street, postalCode, city, country, streetNumber, region } = address;
-  return `${street}, ${streetNumber}, ${postalCode} - ${region}, ${city}, ${country}`;
+  return `${street} ${
+    streetNumber || ''
+  }, ${postalCode} - ${region}, ${city}, ${country}`;
 }
