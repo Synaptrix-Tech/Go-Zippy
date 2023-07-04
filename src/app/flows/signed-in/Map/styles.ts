@@ -1,3 +1,4 @@
+import { Button } from '@components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
@@ -68,4 +69,19 @@ export const BottomSheetSubtitle = styled.Text`
   color: ${({ theme }) => theme.colors.GRAY_MEDIUM};
   font-size: 14px;
   margin-top: 4px;
+`;
+
+export const InputsWrapperTitle = styled.Text`
+  font-size: 16px;
+
+  color: ${({ theme }) => theme.colors.GRAY_DARK};
+`;
+
+export const InputsWrapper = styled.View`
+  gap: 16px;
+  margin-top: 32px;
+`;
+
+export const CustomButton = styled(Button)`
+  margin-top: 32px;
 `;

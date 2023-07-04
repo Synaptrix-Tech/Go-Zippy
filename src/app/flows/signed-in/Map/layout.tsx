@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Address,
   BottomSheetContainer,
@@ -7,8 +7,11 @@ import {
   BottomSheetTitle,
   ConfirmButtonContainer,
   Container,
+  CustomButton,
   Header,
   HeaderAction,
+  InputsWrapper,
+  InputsWrapperTitle,
   Title,
 } from './styles';
 import { Map } from '@components/Map';
@@ -21,6 +24,7 @@ import { Button } from '@components/Button';
 import { loadingStates, loadingStatesEnum } from '@ts/loading';
 import { BottomSheet } from '@components/BottomSheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { Input } from '@components/Input';
 
 type Props = {
   address: AddressStateType | undefined;
@@ -29,6 +33,12 @@ type Props = {
   requestStates: loadingStates;
   bottomSheetRef: React.RefObject<BottomSheetMethods>;
   openBottomSheet: () => void;
+  formValues: {
+    number: string;
+    complement: string;
+  };
+  handleChangeFormValues: (key: string, value: string) => void;
+  createAddress: () => Promise<void>;
 };
 
 export function MapLayout({
@@ -38,6 +48,9 @@ export function MapLayout({
   requestStates,
   bottomSheetRef,
   openBottomSheet,
+  formValues,
+  handleChangeFormValues,
+  createAddress,
 }: Props) {
   const { colors } = useTheme();
   const { goBack } = useNavigation();
@@ -91,17 +104,6 @@ export function MapLayout({
             enablePanDownToClose
           >
             <BottomSheetContainer>
-              {/* <Map
-                cords={{
-                  latitude: address?.coords?.latitude || 0,
-                  longitude: address?.coords?.longitude || 0,
-                }}
-                pointerEvents="none"
-                style={{
-                  width: '100%',
-                  height: 200,
-                }}
-              /> */}
               <Image
                 style={{
                   width: '100%',
@@ -113,12 +115,37 @@ export function MapLayout({
               />
               <BottomSheetContent>
                 <BottomSheetTitle>
-                  {address?.address.street}, {address?.address.streetNumber}
+                  {address?.address?.street}, {address?.address?.streetNumber}
                 </BottomSheetTitle>
                 <BottomSheetSubtitle>
-                  {address?.address.district}, {address?.address.city},{' '}
-                  {address?.address.region}
+                  {address?.address?.district}, {address?.address?.city},{' '}
+                  {address?.address?.region}
                 </BottomSheetSubtitle>
+                <InputsWrapper>
+                  <InputsWrapperTitle>Número e complemento</InputsWrapperTitle>
+                  <Input
+                    style={{ flex: 1 }}
+                    placeholder="Número"
+                    value={formValues.number || ''}
+                    onChangeText={(text) =>
+                      handleChangeFormValues('number', text)
+                    }
+                  />
+                  <Input
+                    style={{ flex: 1 }}
+                    placeholder="Complemento"
+                    value={formValues.complement}
+                    onChangeText={(text) =>
+                      handleChangeFormValues('complement', text)
+                    }
+                  />
+                </InputsWrapper>
+
+                <CustomButton
+                  onPress={createAddress}
+                  title="Criar endereço"
+                  loading={requestStates === loadingStatesEnum.PENDING}
+                />
               </BottomSheetContent>
             </BottomSheetContainer>
           </BottomSheet>

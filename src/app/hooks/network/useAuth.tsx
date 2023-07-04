@@ -2,6 +2,7 @@ import React, {
   PropsWithChildren,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 import { LoginRequestDTO } from '@services/auth/dtos/request/LoginRequestDTO';
@@ -32,9 +33,9 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
       const { token } = await authService.Login(data);
 
-      update(token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-      api.defaults.headers.Authorization = `Bearer ${token}`;
+      update(token);
 
       setRequestStates(loadingStatesEnum.DONE);
     } catch (e) {
@@ -52,6 +53,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       setRequestStates(loadingStatesEnum.ERROR);
     }
   };
+
   return (
     <AuthContext.Provider
       value={{ handleLogin, requestStates, handleRegister }}

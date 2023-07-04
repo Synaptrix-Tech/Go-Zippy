@@ -1,19 +1,20 @@
+import { Address } from 'src/model/Address';
 import { create } from 'zustand';
 
 type LocationStateType = {
-  address: string;
+  selectedAddress: Address;
 };
 
 type LocationActionsType = {
-  update: (address: string) => void;
+  update: (address: Address) => void;
   reset: () => void;
 };
 
 const useLocationStore = create<LocationStateType & LocationActionsType>(
   (set) => ({
-    address: '',
-    update: (address) => set({ address }),
-    reset: () => set({ address: '' }),
+    selectedAddress: {} as Address,
+    update: (selectedAddress) => set({ selectedAddress }),
+    reset: () => set({ selectedAddress: {} as Address }),
   })
 );
 

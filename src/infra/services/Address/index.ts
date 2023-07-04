@@ -20,7 +20,9 @@ export class AddressService {
 
   public async addAddress(address: AddAddressRequestDTO): Promise<Address> {
     try {
-      const response = await api.post(this.routes.post, { address });
+      console.log(address);
+
+      const response = await api.post(this.routes.post, { ...address });
 
       return response.data;
     } catch (error) {

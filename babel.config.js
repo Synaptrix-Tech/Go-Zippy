@@ -26,6 +26,7 @@ module.exports = function (api) {
             '@routes': './src/app/routes',
             '@mocks': './src/app/mocks',
             '@store': './src/app/store',
+            '@storage': './src/app/storage',
             '@styles': './src/app/styles',
             '@ts': './src/app/ts',
             '@utils': './src/app/utils',
